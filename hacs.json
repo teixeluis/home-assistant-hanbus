@@ -1,0 +1,8 @@
+{
+  "name": "HANbus integration",
+  "filename": "hanbus.zip",
+  "homeassistant": "2023.9.3",
+  "hide_default_branch": true,
+  "render_readme": true,
+  "zip_release": true
+}
