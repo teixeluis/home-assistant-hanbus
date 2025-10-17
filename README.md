@@ -114,6 +114,124 @@ hanbus:
     timeout: 5
     message_wait_milliseconds: 1000
     sensors:
+      - name: "e_redes_clock_year" # 01
+        slave: 1
+        address: 1
+        input_type: input
+        data_type: custom
+        count: 1
+        structure: ">H10x"
+        precision: 0
+        scale: 1
+        unit_of_measurement: y
+        scan_interval: 30
+        
+      - name: "e_redes_clock_month" # 01
+        slave: 1
+        address: 1
+        input_type: input
+        data_type: custom
+        count: 1
+        structure: "2xB9x"
+        precision: 0
+        scale: 1
+        unit_of_measurement: m
+        scan_interval: 30
+        
+      - name: "e_redes_clock_day" # 01
+        slave: 1
+        address: 1
+        input_type: input
+        data_type: custom
+        count: 1
+        structure: "3xB8x"
+        precision: 0
+        scale: 1
+        unit_of_measurement: d
+        scan_interval: 30
+        
+      - name: "e_redes_clock_weekday" # 01
+        slave: 1
+        address: 1
+        input_type: input
+        data_type: custom
+        count: 1
+        structure: "4xB7x"
+        precision: 0
+        scale: 1
+        scan_interval: 30
+        
+      - name: "e_redes_clock_hour" # 01
+        slave: 1
+        address: 1
+        input_type: input
+        data_type: custom
+        count: 1
+        structure: "5xB6x"
+        precision: 0
+        scale: 1
+        unit_of_measurement: h
+        scan_interval: 30
+
+      - name: "e_redes_clock_minute" # 01
+        slave: 1
+        address: 1
+        input_type: input
+        data_type: custom
+        count: 1
+        structure: "6xB5x"
+        precision: 0
+        scale: 1
+        unit_of_measurement: min
+        scan_interval: 30
+
+      - name: "e_redes_clock_second" # 01
+        slave: 1
+        address: 1
+        input_type: input
+        data_type: custom
+        count: 1
+        structure: "7xB4x"
+        precision: 0
+        scale: 1
+        unit_of_measurement: s
+        scan_interval: 30
+
+      - name: "e_redes_clock_10ms" # 01
+        slave: 1
+        address: 1
+        input_type: input
+        data_type: custom
+        count: 1
+        structure: "8xB3x"
+        precision: 1
+        scale: 10
+        unit_of_measurement: ms
+        scan_interval: 30
+
+      - name: "e_redes_clock_dev" # 01
+        slave: 1
+        address: 1
+        input_type: input
+        data_type: custom
+        count: 1
+        structure: ">9xH1x"
+        precision: 0
+        scale: 1
+        unit_of_measurement: min
+        scan_interval: 30
+
+      - name: "e_redes_clock_status" # 01
+        slave: 1
+        address: 1
+        input_type: input
+        data_type: custom
+        count: 1
+        structure: "11xB"
+        precision: 0
+        scale: 1
+        scan_interval: 30
+
       - name: "e_redes_voltage" # 6C
         slave: 1
         address: 108
