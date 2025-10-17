@@ -100,8 +100,13 @@ use the configuration flow for simplified UX.
 
 Basically you need to add a configuration entry to the homeassistant configuration.yaml. It will be something similar
 to the example below. Replace the host and port with the correct details for your RS-485 gateway. For example the
-Elfin modules normally listen in the 9988 port by default, but it can be reconfigured in its Web UI. Below are a
-few sensors, but you may define more, by looking up the [HAN specification document](docs/specs/DEF-C44-509.pdf)
+Elfin modules normally listen in the 9988 port by default, but it can be reconfigured in its Web UI. 
+
+If you are interested in details on you to configure an Elfin EW11 device checkout this page:
+
+ * [Elfin setup](docs/howto/Elfin_EW11.md)
+
+Below are a few sensors, but you may define more, by looking up the [HAN specification document](docs/specs/DEF-C44-509.pdf)
 and selecting the address and appropriate struct to convert the value.
 
 ```
@@ -429,3 +434,8 @@ HANbus integration is configured via the GUI. See [the HA docs](https://www.home
 4. Click `SUBMIT`
 
 -->
+
+## TODO
+
+ * Migrate to the configuration workflow (setup integration via HA web UI);
+ * Support HAN devices connected via RTU serial and rtuovertcp
