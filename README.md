@@ -69,7 +69,212 @@ or go to <b>Hacs</b> and search for `HANbus`.
 
 ## Configuration
 
+The configuration is currently based on editing the configuration.yaml file. In the future it will be possible to
+use the configuration flow for simplified UX.
+
+Basically you need to add a configuration entry to the homeassistant configuration.yaml. It will be something similar
+to the example below. Replace the host and port with the correct details for your RS-485 gateway. For example the
+Elfin modules normally listen in the 9988 port by default, but it can be reconfigured in its Web UI. Below are a
+few sensors, but you may define more, by looking up the [HAN specification document](docs/specs/DEF-C44-509.pdf)
+and selecting the address and appropriate struct to convert the value.
+
+```
+hanbus:
+  - name: my_energy_meter
+    type: tcp
+    host: 192.168.1.156
+    port: 9988
+    delay: 1
+    timeout: 5
+    message_wait_milliseconds: 1000
+    sensors:
+      - name: "e_redes_voltage" # 6C
+        slave: 1
+        address: 108
+        input_type: input
+        data_type: uint16
+        precision: 1
+        scale: 0.1
+        offset: 0
+        unit_of_measurement: V
+        device_class: voltage
+        scan_interval: 15
+
+      - name: "e_redes_current" # 6D
+        slave: 1
+        address: 109
+        input_type: input
+        data_type: uint16
+        precision: 1
+        scale: 0.1
+        unit_of_measurement: A
+        device_class: current
+        scan_interval: 15
+        
+      - name: "e_redes_active_power" # 79
+        slave: 1
+        address: 121
+        input_type: input
+        data_type: custom
+        count: 1
+        structure: ">L"
+        precision: 1
+        scale: 1
+        unit_of_measurement: W
+        device_class: power
+        scan_interval: 15
+       
+      - name: "e_redes_power_factor" # 7B
+        slave: 1
+        address: 123
+        input_type: input
+        data_type: uint16
+        precision: 3
+        scale: 0.001
+        unit_of_measurement: '%'
+        device_class: power_factor
+        scan_interval: 15
+
+      - name: "e_redes_frequency" # 7F
+        slave: 1
+        address: 127
+        input_type: input
+        data_type: uint16
+        precision: 1
+        scale: 0.1
+        unit_of_measurement: Hz
+        scan_interval: 15
+       
+      - name: "e_redes_total_off_peak" # 26
+        slave: 1
+        address: 38
+        input_type: input
+        data_type: custom
+        count: 1
+        structure: ">L"
+        precision: 3
+        scale: 0.001
+        unit_of_measurement: kWh
+        device_class: energy
+        scan_interval: 30
+
+      - name: "e_redes_total_peak" # 27
+        slave: 1
+        address: 39
+        input_type: input
+        data_type: custom
+        count: 1
+        structure: ">L"
+        precision: 3
+        scale: 0.001
+        unit_of_measurement: kWh
+        device_class: energy
+        scan_interval: 30
+
+      - name: "e_redes_total_full" # 28
+        slave: 1
+        address: 40
+        input_type: input
+        data_type: custom
+        count: 1
+        structure: ">L"
+        precision: 3
+        scale: 0.001
+        unit_of_measurement: kWh
+        device_class: energy
+        scan_interval: 30
+
+      - name: "e_redes_imported_power" # 16
+        slave: 1
+        address: 22
+        input_type: input
+        data_type: custom
+        count: 1
+        structure: ">L"
+        precision: 3
+        scale: 0.001
+        unit_of_measurement: kWh
+        device_class: energy
+        scan_interval: 30
+
+      - name: "e_redes_reactive_energy_q1"
+        slave: 1
+        address: 24
+        input_type: input
+        data_type: custom
+        count: 1
+        structure: ">L"
+        precision: 3
+        scale: 0.001
+        unit_of_measurement: kVAr
+        scan_interval: 30
+
+      - name: "e_redes_disconnector_state"
+        ## 0 para disconectado - 1 para conectado - 2 para preparado a reconectar
+        slave: 1
+        address: 132
+        input_type: input
+        count: 1
+        data_type: custom
+        structure: ">Bx"
+        scan_interval: 10
+
+      - name: "e_redes_disconnector_q_param"
+        slave: 1
+        address: 133
+        input_type: input
+        count: 1
+        data_type: custom
+        structure: ">L"
+        scan_interval: 10
+
+      - name: "e_redes_disconnector_k_param"
+        slave: 1
+        address: 134
+        input_type: input
+        count: 1
+        data_type: custom
+        structure: ">L"
+        scan_interval: 10
+
+      - name: "e_redes_tariff_l1" # Tariff
+        ## 1 para Vazio - 2 para Ponta - 3 para Cheia
+        slave: 1
+        address: 11
+        input_type: input
+        count: 1
+        data_type: custom
+        structure: ">Bx"
+        scan_interval: 30
+
+      - name: "e_redes_meter_fw"
+        slave: 1
+        address: 4
+        input_type: input
+        count: 1
+        data_type: string
+        scan_interval: 30
+```
+
+If you are not familiar with the Python structs, like for example:
+
+```
+structure: ">L"
+```
+
+Take a look at this document, which explains in detail how the Python structs can be leveraged to convert byte data to any of the regular Python data types:
+
+[Python struct](https://docs.python.org/3/library/struct.html)
+
+Once you are done with setting up the configuration, just restart Home Assistant, and if all went well you should find your newly configured
+sensors among the entities.
+
+![Entities](docs/images/entities.png)
+
 <!--
+
+TODO migrate to configuration workflow:
+
 HANbus integration is configured via the GUI. See [the HA docs](https://www.home-assistant.io/getting-started/integration/) for more details.
 
 
