@@ -27,21 +27,47 @@ fixed 16 bits of the original Modbus specification.
 The EDP HAN specification does not define a specific limit to how many bytes a single register can have, but the ultimate constraint 
 is the 256 bytes maximum length of the Modbus frame.
 
+This integration therefore extends the original modbus integration that is bundled with HA, extending its validations
+to leverage the ability provided by the modbus lib to define register values with custom length and structure.
+
+As such with this capability it becomes possible via configuration to support the data types that EDP defined in their 
+specification.
+
 ### Structure of the request / response:
 
-Request:
+To better understand the difference between a regular Modbus payload and the HAN bus message, we have the following:
+
+#### Standard Modbus:
+
+**Request:**
 
 | Byte 0        | Byte 1                 | Byte 2                 | Byte 3                            | Byte 4                           |
 |:--------------|:-----------------------|:-----------------------|:----------------------------------|:---------------------------------|
 | Function code | Starting Address (MSB) | Starting Address (LSB) | Quantity of Input Registers (MSB) |Quantity of Input Registers (LSB) |
 
-Response:
+**Response:**
+
+| Byte 0        | Byte 1         | Byte 2      | Byte 3      |
+|:--------------|:---------------|:------------|:------------|
+| Function code | Byte Count (m) | Data byte 1 | Data byte 0 |
+
+
+
+#### HAN bus:
+
+**Request:**
+
+| Byte 0        | Byte 1                 | Byte 2                 | Byte 3                            | Byte 4                           |
+|:--------------|:-----------------------|:-----------------------|:----------------------------------|:---------------------------------|
+| Function code | Starting Address (MSB) | Starting Address (LSB) | Quantity of Input Registers (MSB) |Quantity of Input Registers (LSB) |
+
+**Response:**
 
 | Byte 0        | Byte 1         | Byte 2      | Byte 3          |   Byte 4    | ...       | Byte n      |
 |:--------------|:---------------|:------------|:----------------|:------------|:----------|-------------|
 | Function code | Byte Count (m) | Data byte m | Data byte m - 1 | ...         | ...       | Data byte 0 |
 
-Constraints:
+**Constraints:**
 
 ```
 n < 256 bytes
