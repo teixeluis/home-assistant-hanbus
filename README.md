@@ -83,7 +83,7 @@ According to the HAN specification, if m (register size), is not an even number,
 
 Have [HACS](https://hacs.xyz/) installed, this will allow you to update easily.
 
-<a href="https://my.home-assistant.io/redirect/hacs_repository/?owner=AlexandrErohin&repository=home-assistant-tplink-router&category=integration" target="_blank"><img src="https://my.home-assistant.io/badges/hacs_repository.svg" alt="Open your Home Assistant instance and open a repository inside the Home Assistant Community Store." /></a>
+<a href="https://my.home-assistant.io/redirect/hacs_repository/?owner=teixeluis&repository=home-assistant-hanbus&category=integration" target="_blank"><img src="https://my.home-assistant.io/badges/hacs_repository.svg" alt="Open your Home Assistant instance and open a repository inside the Home Assistant Community Store." /></a>
 
 or go to <b>Hacs</b> and search for `HANbus`.
 
