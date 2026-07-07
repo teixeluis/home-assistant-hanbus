@@ -11,7 +11,7 @@ import voluptuous as vol
 
 from homeassistant.components.climate import HVACMode
 from homeassistant.const import (
-    CONF_ADDRESS,   
+    CONF_ADDRESS,
     CONF_COUNT,
     CONF_HOST,
     CONF_NAME,
