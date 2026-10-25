@@ -11,7 +11,7 @@ import voluptuous as vol
 
 from homeassistant.components.climate import HVACMode
 from homeassistant.const import (
-    CONF_ADDRESS,   
+    CONF_ADDRESS,
     CONF_COUNT,
     CONF_HOST,
     CONF_NAME,
@@ -168,7 +168,7 @@ def struct_validator(config: dict[str, Any]) -> dict[str, Any]:
         assert isinstance(structure, str)
         assert isinstance(count, int)
         try:
-            size = struct.calcsize(structure)
+            struct.calcsize(structure)
         except struct.error as err:
             raise vol.Invalid(f"{name}: error in structure format --> {err!s}") from err
     else:
@@ -265,7 +265,8 @@ def register_int_list_validator(value: Any) -> Any:
             return value
 
     raise vol.Invalid(
-        f"Invalid {CONF_ADDRESS} register for fan/swing mode. Required type: positive integer, allowed 1 or list of 1 register."
+        f"Invalid {CONF_ADDRESS} register for fan/swing mode."
+        "Required type: positive integer, allowed 1 or list of 1 register."
     )
 
 

@@ -4,7 +4,8 @@
   "codeowners": [],
   "documentation": "https://github.com/teixeluis/home-assistant-hanbus/blob/main/README.md",
   "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/teixeluis/home-assistant-hanbus/issues",
   "loggers": ["pymodbus"],
-  "requirements": ["pymodbus==3.11.2"],
-  "icon": "custom_components/hanbus/icons/icon.png"
+  "requirements": ["pymodbus==3.13.1"],
+  "version": "0.1.2"
 }
